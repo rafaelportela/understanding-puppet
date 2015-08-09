@@ -21,4 +21,9 @@ node 'web.example.com' {
     ensure => installed,
     require => Exec['apt-get update']
   }
+
+  service { 'nginx':
+    ensure => running,
+    require => Package['nginx'],
+  }
 }
