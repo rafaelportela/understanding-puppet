@@ -51,5 +51,15 @@ node 'web.example.com' {
 }
 
 node 'db.example.com' {
-  include '::mysql::server'
+  class { '::mysql::server':
+    root_password => 'root',
+    remove_default_accounts => false,
+  }
+
+  mysql::db { 'myapp_db':
+    user => 'myuser',
+    password => 'myuser',
+    host => 'localhost',
+    grant => ['ALL'],
+  }
 }
