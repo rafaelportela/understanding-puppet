@@ -49,3 +49,7 @@ node 'web.example.com' {
     ensure => 'absent',
   }
 }
+
+node 'db.example.com' {
+  include '::mysql::server'
+}

@@ -1,5 +1,9 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ubuntu/trusty64"
+  config.vm.provision :shell do |shell|
+    shell.inline = "mkdir -p /etc/puppet/modules; sudo apt-get update; puppet module install --force puppetlabs/mysql;"
+  end
+
   config.vm.provision "puppet"
 
   config.vm.define "web" do |web|
