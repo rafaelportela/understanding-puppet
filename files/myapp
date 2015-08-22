@@ -1,0 +1,12 @@
+#! /bin/sh
+
+case "$1" in
+  start)
+    sudo pip install -r /vagrant/myapp/requirements.txt
+    nohup python /vagrant/myapp/myapp.py >& /dev/null &
+    ;;
+  *)
+    echo "only myapp start is available"
+    exit 3
+    ;;
+esac

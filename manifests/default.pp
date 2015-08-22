@@ -51,6 +51,28 @@ node 'web.example.com' {
       File['remove default site']
     ],
   }
+
+  file { '/etc/init.d/myapp':
+    source => 'file:///vagrant/files/myapp',
+    ensure => 'present',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0755',
+  }
+
+  package { 'python-pip':
+    ensure => installed,
+    require => Exec['apt-get update']
+  }
+
+  service { 'myapp':
+    ensure => running,
+    enable => true,
+    require => [
+      File['/etc/init.d/myapp'],
+      Package['python-pip']
+    ],
+  }
 }
 
 node 'db.example.com' {
