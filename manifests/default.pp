@@ -22,15 +22,6 @@ node 'web.example.com' {
     require => Exec['apt-get update']
   }
 
-  service { 'nginx':
-    ensure => running,
-    require => [
-      Package['nginx'],
-      File['/etc/nginx/sites-enabled/myapp'],
-      File['remove default site']
-    ],
-  }
-
   file { 'myapp.conf nginx file':
     path => '/etc/nginx/sites-available/myapp',
     source => 'file:///vagrant/files/nginx-myapp.conf',
@@ -47,6 +38,15 @@ node 'web.example.com' {
   file { 'remove default site':
     path => '/etc/nginx/sites-enabled/default',
     ensure => 'absent',
+  }
+
+  service { 'nginx':
+    ensure => running,
+    require => [
+      Package['nginx'],
+      File['/etc/nginx/sites-enabled/myapp'],
+      File['remove default site']
+    ],
   }
 }
 
