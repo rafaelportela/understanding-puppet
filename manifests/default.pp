@@ -33,11 +33,14 @@ node 'web.example.com' {
     ensure => 'link',
     target => '/etc/nginx/sites-available/myapp',
     require => File['myapp.conf nginx file'],
+    notify => Service['nginx'],
   }
 
   file { 'remove default site':
     path => '/etc/nginx/sites-enabled/default',
     ensure => 'absent',
+    require => File['myapp.conf nginx file'],
+    notify => Service['nginx'],
   }
 
   service { 'nginx':
