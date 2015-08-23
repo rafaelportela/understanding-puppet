@@ -5,7 +5,7 @@ class nginx {
 
   file { '/etc/nginx/sites-enabled/default':
     ensure => 'absent',
-    notify => Package['nginx'],
+    require => Package['nginx'],
   }
 
   service { 'nginx':
