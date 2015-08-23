@@ -1,18 +1,18 @@
 node default {
-  exec { "say hello":
-    command => "/bin/echo hello"
-  }
-
-  host { 'web.example.com':
+  host { 'web01.example.com':
     ip => '192.168.100.2',
   }
 
-  host { 'db.example.com':
+  host { 'web02.example.com':
     ip => '192.168.100.3',
+  }
+
+  host { 'db.example.com':
+    ip => '192.168.100.4',
   }
 }
 
-node 'web.example.com' {
+node /^web(01|02).example.com?/ {
   exec { 'apt-get update':
     command => '/usr/bin/apt-get update'
   }
