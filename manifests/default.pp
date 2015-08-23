@@ -13,9 +13,11 @@ node default {
 }
 
 node /^web(01|02).example.com?/ {
-  class { 'nginx':
+  class { 'nginx::server':
     server_name => 'webapp',
     app_root_dir => '/vagrant/myapp',
+    app_listening_port => '5000',
+    require => Exec['apt-update'],
   }
 
   file { '/etc/init.d/myapp':
