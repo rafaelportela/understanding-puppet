@@ -26,9 +26,13 @@ node /^web(01|02).example.com?/ {
     mode   => '0755',
   }
 
+  exec { 'apt-update':
+    command => '/usr/bin/apt-get update'
+  }
+
   package { 'python-pip':
     ensure => installed,
-    require => Exec['apt-get update']
+    require => Exec['apt-update']
   }
 
   service { 'myapp':
