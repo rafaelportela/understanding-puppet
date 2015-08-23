@@ -13,7 +13,9 @@ node default {
 }
 
 node /^web(01|02).example.com?/ {
-  include nginx
+  class { 'nginx':
+    server_name => 'webapp',
+  }
 
   file { '/etc/init.d/myapp':
     source => 'file:///vagrant/files/myapp',
