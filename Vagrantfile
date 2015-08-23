@@ -5,14 +5,18 @@ Vagrant.configure(2) do |config|
     web.vm.box = "ubuntu/trusty64"
     web.vm.hostname = "web01.example.com"
     web.vm.network "private_network", ip: "192.168.100.2"
-    web.vm.provision "puppet"
+    web.vm.provision "puppet" do |puppet|
+      puppet.module_path = "modules"
+    end
   end
 
   config.vm.define "web02" do |web|
     web.vm.box = "ubuntu/trusty64"
     web.vm.hostname = "web02.example.com"
     web.vm.network "private_network", ip: "192.168.100.3"
-    web.vm.provision "puppet"
+    web.vm.provision "puppet" do |puppet|
+      puppet.module_path = "modules"
+    end
   end
 
   config.vm.define "db" do |db|
