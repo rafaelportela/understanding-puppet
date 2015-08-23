@@ -15,6 +15,7 @@ node default {
 node /^web(01|02).example.com?/ {
   class { 'nginx':
     server_name => 'webapp',
+    app_root_dir => '/vagrant/myapp',
   }
 
   file { '/etc/init.d/myapp':

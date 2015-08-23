@@ -1,4 +1,4 @@
-class nginx ($server_name = 'myapp') {
+class nginx ($server_name = 'myapp', $app_root_dir = '/vagrant/') {
   exec { 'apt-get update':
     command => '/usr/bin/apt-get update'
   }
@@ -10,9 +10,10 @@ class nginx ($server_name = 'myapp') {
 
   file { "/etc/nginx/sites-available/${server_name}":
     ensure => file,
-    source => 'file:///vagrant/files/nginx-myapp.conf',
+    content => template('nginx/nginx-server.conf.erb'),
     owner => 'root',
     group => 'root',
+    require => Package['nginx'],
   }
 
   file { "/etc/nginx/sites-enabled/${server_name}":
