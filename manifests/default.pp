@@ -12,7 +12,7 @@ node default {
   }
 }
 
-node /^web(01|02).example.com?/ {
+class nginx {
   exec { 'apt-get update':
     command => '/usr/bin/apt-get update'
   }
@@ -51,6 +51,10 @@ node /^web(01|02).example.com?/ {
       File['remove default site']
     ],
   }
+}
+
+node /^web(01|02).example.com?/ {
+  include nginx
 
   file { '/etc/init.d/myapp':
     source => 'file:///vagrant/files/myapp',
